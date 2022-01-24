@@ -99,10 +99,10 @@ function getFastestPromise(array) {
  *    });
  *
  */
-function chainPromises(/* array, action */) {
-  throw new Error('Not implemented');
+function chainPromises(array, action) {
+  const promise = Promise;
+  return promise.allSettled(array).then((resArray) => resArray.filter((res) => res.status === 'fulfilled').map((it) => it.value).reduce(action));
 }
-
 module.exports = {
   willYouMarryMe,
   processAllPromises,

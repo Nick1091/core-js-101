@@ -200,17 +200,16 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
-  // let str = '';
-  // for (let i = 1; i <= height; i += 1) {
-  //   if (i === 1) {
-  //     str += '\┌\'─'{width - 2)\┐\n';
-  //   } else if (i === height) {
-  //     str += '\└\'─'{width - 2)\┘\n';
-  //   } else str += `│${' '.repeat(width - 2)}│\n`;
-  // }
-  // return str;
+function getRectangleString(width, height) {
+  let str = '';
+  for (let i = 1; i <= height; i += 1) {
+    if (i === 1) {
+      str += `┌${'─'.repeat(width - 2)}┐\n`;
+    } else if (i === height) {
+      str += `└${'─'.repeat(width - 2)}┘\n`;
+    } else str += `│${' '.repeat(width - 2)}│\n`;
+  }
+  return str;
 }
 
 
@@ -230,8 +229,19 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const firstString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const lastString = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  const firstStringArray = firstString.split('');
+  const lastStringArray = lastString.split('');
+  const strArray = str.split('');
+  return strArray.map((liter) => {
+    if (liter === '?' || liter === '!') return liter;
+    if (firstStringArray.indexOf(liter) !== -1) {
+      return lastStringArray[firstStringArray.indexOf(liter)];
+    }
+    return ' ';
+  }).join('');
 }
 
 /**
@@ -276,8 +286,12 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arrCard = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return arrCard.indexOf(value);
 }
 
 

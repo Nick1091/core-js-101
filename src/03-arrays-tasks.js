@@ -53,7 +53,6 @@ function generateOdds(len) {
  *    [] => []
  */
 function doubleArray(arr) {
-  // throw new Error('Not implemented');
   return arr.concat(arr);
 }
 
@@ -541,8 +540,18 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const map = new Map();
+
+  return array.reduce((acc, cur) => {
+    let arr = acc.get(keySelector(cur));
+    if (!arr) {
+      arr = [valueSelector(cur)];
+    } else {
+      arr.push(valueSelector(cur));
+    }
+    return acc.set(keySelector(cur), arr);
+  }, map);
 }
 
 
